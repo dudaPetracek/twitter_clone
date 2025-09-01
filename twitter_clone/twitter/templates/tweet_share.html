@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+  .tweet-image {
+    width: 50px;
+    height: 50px; 
+    object-fit: cover;
+  }
+</style>
+
+
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-8">
+
+        <h1>Tweet Feed</h1>
+        <br />
+
+        
+          <div class="alert alert-dark" role="alert">
+            <div class="container">
+              <div class="row">
+                <div class="col-2">
+                  {% if tweet.user.profile.profile_image %}
+                    <img src="{{ tweet.user.profile.profile_image.url }}" class="rounded-circle tweet-image" alt="{{ profile.user.username }}">
+                  {% else %}
+                    <img src="{% static 'images/default_profile_pic.png' %}" class="rounded-circle tweet-image" alt="{{ profile.user.username }}">	
+                  {% endif %}
+                </div>
+                <div class="col-8">
+                  {{ tweet.body }} <br/>
+                  <small class="text-muted fs-7">
+                    ({{ tweet.created_at }}) by <strong>@{{ tweet.user.username }}</strong>                    
+                  </small>
+                </div>
+
+                <div class="col-2 d-flex justify-content-center align-items-center">
+                  <br />
+                  <small>
+                    {{ tweet.number_of_likes }}
+
+                    {% if user in tweet.likes.all %}
+                      <a href="{% url "tweet_like" tweet.id %}">
+                        <i class="bi bi-heart-fill fw-bold" style="color:indianred"></i>
+                      </a>
+                    {% else %}
+                      <a href="{% url "tweet_like" tweet.id %}">
+                        <i class="bi bi-heart" style="color:indianred"></i>
+                      </a>                
+                    {% endif %}
+                  </small>
+                  
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <br /><br />
+        
+  </div>
+
+  <div class="col-4">
+    <br /><br /><br />
+
+    {% if form %}
+      <form method=POST>
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-secondary">Tweet</button>
+      </form>    
+    {% endif %}
+  </div>
+
+{% endblock  %}
