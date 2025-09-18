@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "twitter-clone"
+version = "0.1.0"
+description = "Clone do Twitter com Django e Django Rest Framework"
+authors = ["Duda Petracek <seuemail@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^5.0"
+djangorestframework = "^3.15"
+
+[tool.poetry.group.dev.dependencies]
+# Dependências de desenvolvimento (se precisar pode adicionar aqui, ex: pytest)
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
